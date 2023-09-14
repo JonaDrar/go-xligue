@@ -2,12 +2,19 @@ package main
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 )
 
 func main() {
+
+	port := os.Getenv("PORT")
+
+	if port == "" {
+		port = "3000"
+	}
 
 	app := fiber.New()
 
@@ -22,11 +29,11 @@ func main() {
 	app.Get("/users", func(c *fiber.Ctx) error {
 		return c.JSON(&fiber.Map{
 			"success": true,
-			"message": "Hello World",
+			"message": "OK",
 			"data":    "All users",
 		})
 	})
 
-	app.Listen(":3000")
+	app.Listen(":" + port)
 	fmt.Println("Server is running on port 3000")
 }
