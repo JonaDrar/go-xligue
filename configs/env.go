@@ -9,7 +9,14 @@ import (
 )
 
 func EnvMongoURI() string {
-	err := godotenv.Load(filepath.Join("", ".env"))
+
+	dir, err := filepath.Abs(filepath.Dir(os.Args[0]))
+	if err != nil {
+		log.Fatal(err)
+	}
+	environmentPath := filepath.Join(dir, ".env")
+
+	err = godotenv.Load(environmentPath)
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
