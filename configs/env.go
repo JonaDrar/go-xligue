@@ -1,7 +1,6 @@
 package configs
 
 import (
-	"fmt"
 	"log"
 	"os"
 
@@ -9,11 +8,9 @@ import (
 )
 
 func EnvMongoURI() string {
-	err := godotenv.Load()
+	err := godotenv.Load(".env")
 	if err != nil {
-		//imprimir el log del error
-		log.Fatal("Error loading .env file")
-		fmt.Println(err)
+		log.Fatalf("Error loading .env file: %v", err)
 	}
 
 	return os.Getenv("MONGODB_URI")
